@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
 
             'email' => 'admin@example.com',
-            'password' => 'secret',
+            'password' => 'secret123',
 
         ]);
     }
