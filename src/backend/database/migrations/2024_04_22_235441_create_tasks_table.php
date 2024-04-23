@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->enum('status', [TaskStatusEnum::InProgress->value, TaskStatusEnum::Completed->value])->default(TaskStatusEnum::InProgress->value);
             $table->text('description')->nullable();
-            $table->date('due_date')->nullable();
+            $table->date('due_date')->nullable()->default(null);;
             $table->timestamps();
         });
     }

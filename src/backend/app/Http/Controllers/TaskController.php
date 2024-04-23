@@ -18,11 +18,32 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        return TaskResource::collection(
-            Task::where("user_id", Auth::user()->id)->get()
-        );
+        $per_page = 10;
+        // return TaskResource::collection(
+        //     Task::where("user_id", Auth::user()->id)->get()
+        // );
+        // Get user's tasks
+        $tasksQuery = Task::where("user_id", Auth::user()->id);
+
+        // Filtering
+        if ($request->has('status')) {
+            $tasksQuery->where('status', $request->status);
+        }
+
+        // Sorting
+        $sortField = $request->input('sort_by', 'due_date');
+        $sortDirection = $request->input('sort_dir', 'asc');
+
+        $tasksQuery->orderBy($sortField, $sortDirection);
+
+
+
+        // Retrieve tasks
+        $tasks = $tasksQuery->get();
+
+        return TaskResource::collection($tasks)->paginate($per_page);
     }
 
 
@@ -37,6 +58,7 @@ class TaskController extends Controller
             'user_id' => Auth::user()->id,
             'name' => $request->name,
             'description' => $request->description,
+            'due_date' => $request->due_date,
             'status' => $request->status
         ]);
         return new TaskResource($task);
