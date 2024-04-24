@@ -7,8 +7,23 @@
         @submit.prevent="login"
       >
         <div class="px-10 py-12">
-          <h1 class="text-center text-3xl font-bold">Welcome Back!</h1>
-          <div class="mt-6 mx-auto w-24 border-b-2" />
+          <h1 class="text-center text-3xl font-bold">Register your account!</h1>
+          <div class="mt-7 mx-auto w-24 border-b-2" />
+          <label
+            class="mb-2 block text-gray-600 select-none"
+            for="name"
+            name="name"
+            >Name:</label
+          >
+          <input
+            class="mb-4 p-2 leading-normal block w-full border text-gray-700 bg-white font-sans rounded text-left appearance-none relative focus:border-indigo-400 focus:ring;"
+            id="name"
+            label="Name"
+            placeholder="Enter your name"
+            type="text"
+            autofocus
+            autocapitalize="off"
+          />
           <label
             class="mb-2 block text-gray-600 select-none"
             for="email"
@@ -38,9 +53,9 @@
             type="password"
           />
           <div class="mt-4">
-            <RouterLink to="/Register" class="text-sm text-indigo-950">
+            <RouterLink to="/login" class="text-sm text-indigo-950">
               <span class="text-sm underline-offset-4 hover:underline"
-                >Don't have an account?</span
+                >Already have an account?</span
               ></RouterLink
             >
           </div>
@@ -50,7 +65,7 @@
             class="px-6 py-3 rounded bg-indigo-950 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-indigo-900 focus:bg-indigo-900 ml-auto"
             type="submit"
           >
-            Login
+            Register
           </button>
         </div>
       </form>

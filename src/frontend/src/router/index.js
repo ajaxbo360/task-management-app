@@ -1,4 +1,5 @@
 import LoginView from "@/views/Auth/LoginView.vue";
+import RegisterView from "@/views/Auth/RegisterView.vue";
 import HomeView from "@/views/HomeView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -15,6 +16,11 @@ const router = createRouter({
       name: "login",
       component: LoginView,
     },
+    {
+      path: "/register",
+      name: "register",
+      component: RegisterView,
+    },
     // {
     //   path: '/about',
     //   name: 'about',
@@ -24,6 +30,19 @@ const router = createRouter({
     //   component: () => import('../views/AboutView.vue')
     // }
   ],
+});
+router.beforeResolve((to, from, next) => {
+  // If this isn't an initial page load.
+  if (to.name) {
+    // Start the route progress bar.
+    NProgress.start();
+  }
+  next();
+});
+
+router.afterEach((to, from) => {
+  // Complete the animation of the route progress bar.
+  NProgress.done();
 });
 
 export default router;
