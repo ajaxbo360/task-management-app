@@ -1,6 +1,7 @@
 import http from "@/helpers/http";
 import LoginView from "@/views/Auth/LoginView.vue";
 import RegisterView from "@/views/Auth/RegisterView.vue";
+import Layout from "@/views/Shared/Layout.vue";
 import HomeView from "@/views/HomeView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -9,8 +10,15 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: HomeView,
+      name: "layout",
+      component: Layout,
+      children: [
+        {
+          path: "/",
+          name: "home",
+          component: HomeView,
+        },
+      ],
     },
     {
       path: "/login",
@@ -35,6 +43,9 @@ const router = createRouter({
 // Check if the user is authenticated.
 router.beforeEach((to, from) => {
   if (to.name === "login") {
+    return true;
+  }
+  if (to.name === "register") {
     return true;
   }
 

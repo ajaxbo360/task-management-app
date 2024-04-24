@@ -1,7 +1,6 @@
 <template>
-  <div class="flex items-center justify-center p-6 min-h-screen bg-indigo-950">
+  <div class="flex items-center justify-center p-6 min-h-screen bg-orange-400">
     <div class="w-full max-w-md">
-      <!-- <logo class="block mx-auto w-full max-w-xs fill-white" height="50" /> -->
       <form
         class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden"
         @submit.prevent="handleLogin"
@@ -49,7 +48,7 @@
         </div>
         <div class="flex px-10 py-4 bg-gray-100 border-t border-gray-100">
           <button
-            class="px-6 py-3 rounded bg-indigo-950 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-indigo-900 focus:bg-indigo-900 ml-auto"
+            class="px-6 py-3 rounded bg-black text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-slate-500 focus:bg-slate-500 ml-auto"
             type="submit"
           >
             Login
@@ -61,7 +60,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, onMounted, computed } from "vue";
+import { reactive, onMounted } from "vue";
 import http from "@/helpers/http";
 import { useRouter } from "vue-router";
 
