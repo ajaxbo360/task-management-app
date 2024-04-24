@@ -4,7 +4,7 @@
       <!-- <logo class="block mx-auto w-full max-w-xs fill-white" height="50" /> -->
       <form
         class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden"
-        @submit.prevent="login"
+        @submit.prevent="handleLogin"
       >
         <div class="px-10 py-12">
           <h1 class="text-center text-3xl font-bold">Welcome Back!</h1>
@@ -19,6 +19,7 @@
             class="mb-4 p-2 leading-normal block w-full border text-gray-700 bg-white font-sans rounded text-left appearance-none relative focus:border-indigo-400 focus:ring;"
             id="email"
             label="Email"
+            v-model="credentials.email"
             placeholder="Enter your email"
             type="email"
             autofocus
@@ -33,12 +34,13 @@
           <input
             class="p-2 leading-normal block w-full border text-gray-700 bg-white font-sans rounded text-left appearance-none relative focus:border-indigo-400 focus:ring;"
             id="password"
+            v-model="credentials.password"
             label="Password"
             placeholder="Enter your password..."
             type="password"
           />
           <div class="mt-4">
-            <RouterLink to="/Register" class="text-sm text-indigo-950">
+            <RouterLink to="/register" class="text-sm text-indigo-950">
               <span class="text-sm underline-offset-4 hover:underline"
                 >Don't have an account?</span
               ></RouterLink
@@ -58,6 +60,41 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { reactive, ref, onMounted, computed } from "vue";
+import http from "@/helpers/http";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const credentials = reactive({
+  email: "",
+  password: "",
+});
+
+// check if user is already logged in
+onMounted(() => {
+  if (localStorage.getItem("token")) {
+    router.push({
+      name: "home",
+    });
+  }
+});
+
+// login function call
+const handleLogin = () => {
+  http()
+    .post("/api/login", credentials)
+    .then((response) => {
+      console.log(response.data);
+      localStorage.setItem("token", JSON.stringify(response.data.data.token));
+      router.push({ name: "home" });
+    })
+    .catch((error) => {
+      console.error(error);
+      alert(error.response.data.message);
+    });
+};
+</script>
 
 <style lang="scss" scoped></style>

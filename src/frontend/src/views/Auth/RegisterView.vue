@@ -4,7 +4,7 @@
       <!-- <logo class="block mx-auto w-full max-w-xs fill-white" height="50" /> -->
       <form
         class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden"
-        @submit.prevent="login"
+        @submit.prevent="handleRegister"
       >
         <div class="px-10 py-12">
           <h1 class="text-center text-3xl font-bold">Register your account!</h1>
@@ -73,6 +73,44 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { reactive, ref, onMounted, computed } from "vue";
+import http from "@/helpers/http";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const credentials = reactive({
+  name: "",
+  email: "",
+  password: "",
+});
+
+console.log(credentials);
+
+// check if user is already logged in
+onMounted(() => {
+  if (localStorage.getItem("token")) {
+    router.push({
+      name: "login",
+    });
+  }
+});
+
+// login function call
+const handleRegister = () => {
+  http()
+    .post("api/register", credentials)
+    .then((response) => {
+      console.log(response.data);
+      localStorage.setItem("token", response.data);
+      router.push({ name: "login" });
+    })
+    .catch((error) => {
+      console.error(error);
+      alert(error.response.data.message);
+    });
+};
+</script>
 
 <style lang="scss" scoped></style>
