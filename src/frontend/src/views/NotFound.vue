@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>Home</h1>
-  </div>
+  <div class="text-3xl bg-red-800">Not Found 404</div>
 </template>
 
 <script setup></script>

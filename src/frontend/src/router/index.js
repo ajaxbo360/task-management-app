@@ -1,8 +1,11 @@
 import http from "@/helpers/http";
 import LoginView from "@/views/Auth/LoginView.vue";
 import RegisterView from "@/views/Auth/RegisterView.vue";
-import Layout from "@/views/Shared/Layout.vue";
-import HomeView from "@/views/HomeView.vue";
+import TaskList from "@/views/Task/TaskList.vue";
+import TaskDetail from "@/views/Task/TaskDetail.vue";
+import TaskCreate from "@/views/Task/TaskCreate.vue";
+import TaskEdit from "@/views/Task/TaskEdit.vue";
+import NotFound from "@/views/NotFound.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -10,16 +13,11 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "layout",
-      component: Layout,
-      children: [
-        {
-          path: "/",
-          name: "home",
-          component: HomeView,
-        },
-      ],
+      name: "dashboard",
+
+      component: TaskList,
     },
+
     {
       path: "/login",
       name: "login",
@@ -29,6 +27,29 @@ const router = createRouter({
       path: "/register",
       name: "register",
       component: RegisterView,
+    },
+
+    {
+      path: "/task/:id",
+      name: "TaskDetail",
+      component: TaskDetail,
+      props: true,
+    },
+    {
+      path: "/task/create",
+      name: "TaskCreate",
+      component: TaskCreate,
+    },
+    {
+      path: "/task/:id/edit",
+      name: "TaskEdit",
+      component: TaskEdit,
+      props: true,
+    },
+    {
+      path: "/:catchAll(.*)",
+      name: "NotFound",
+      component: NotFound,
     },
     // {
     //   path: '/about',

@@ -75,7 +75,7 @@ const credentials = reactive({
 onMounted(() => {
   if (localStorage.getItem("token")) {
     router.push({
-      name: "home",
+      name: "dashboard",
     });
   }
 });
@@ -87,7 +87,7 @@ const handleLogin = () => {
     .then((response) => {
       console.log(response.data);
       localStorage.setItem("token", JSON.stringify(response.data.data.token));
-      router.push({ name: "home" });
+      router.push({ name: "dashboard" });
     })
     .catch((error) => {
       console.error(error);
