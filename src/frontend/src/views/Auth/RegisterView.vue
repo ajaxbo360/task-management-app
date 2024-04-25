@@ -97,14 +97,21 @@ onMounted(() => {
   }
 });
 
-// login function call
+// Register function call
 const handleRegister = () => {
   http()
     .post("api/register", credentials)
     .then((response) => {
       console.log(response.data);
       localStorage.setItem("token", response.data);
-      router.push({ name: "login" });
+      toast(response.data.data.message, {
+        theme: "auto",
+        type: "success",
+        autoClose: 4000,
+      });
+      setTimeout(() => {
+        router.push({ name: "login" });
+      }, 5000);
     })
     .catch((error) => {
       console.error(error);

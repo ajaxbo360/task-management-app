@@ -22,7 +22,7 @@
           <!-- <span class="hidden md:inline">&nbsp;Tasks</span> -->
         </RouterLink>
       </div>
-      <div class="bg-white rounded-md shadow-md overflow-x-auto">
+      <div class="bg-white rounded-md drop-shadow-2xl overflow-x-auto p-3">
         <div v-if="loading" class="btn-spinner mr-2" />
         <table class="w-full whitespace-nowrap">
           <thead>
@@ -60,16 +60,15 @@
                 </RouterLink> -->
 
                 <select
-                  v-model="status"
+                  v-model="task.attributes.status"
                   @change="updateTaskStatus(task.attributes.status)"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-36 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                 >
                   <option
                     v-for="statusOption in statusOptions"
                     :key="statusOption"
-                    :value="statusOption"
                   >
-                    {{ statusOption[0] }}
+                    {{ statusOption }}
                   </option>
                 </select>
               </td>
@@ -120,7 +119,7 @@ onMounted(() => {
   fetchTasks(currentPage.value);
 });
 
-const statusOptions = [tasks];
+const statusOptions = ["In Progress", "Completed"];
 const updateTaskStatus = async (task) => {
   await http()
     .put(`/api/tasks/${task.id}`, {

@@ -28,17 +28,15 @@
               v-model="task.due_date"
             />
 
-            <!-- <text-input class="pb-8 pr-6 w-full lg:w-1/2" label="City" /> -->
-
-            <select-input
-              class="pb-8 pr-6 w-full"
-              label="Status"
+            <select
               v-model="task.status"
+              @change="updateTaskStatus(task.status)"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-36 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
             >
-              <option v-for="statusOption in statusOptions" :key="task.status">
+              <option v-for="statusOption in statusOptions" :key="statusOption">
                 {{ statusOption }}
               </option>
-            </select-input>
+            </select>
           </div>
           <div
             class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100"
@@ -61,45 +59,20 @@ import TextareaInput from "../Shared/TextareaInput.vue";
 import Layout from "../Shared/Layout.vue";
 import SelectInput from "../Shared/SelectInput.vue";
 import LoadingButton from "../Shared/LoadingButton.vue";
+import useTaskById from "@/composables/useTaskById";
 import { useRouter } from "vue-router";
 import { onMounted, reactive, ref } from "vue";
-import http from "@/helpers/http";
 
 // Initialize router
 const router = useRouter();
 
-// Define task data
-const task = ref({
-  name: null,
-  description: null,
-  due_date: null,
-  status: null,
-});
 const statusOptions = ["In Progress", "Completed"];
-// const taskEdited = reactive({
-//   name: task.name,
-//   description: task.description,
-//   due_date: task.due_date,
-//   status: task.status,
-// });
 
 // Function to fetch task data based on ID
-const fetchTask = async () => {
-  const taskId = router.currentRoute.value.params.id;
-  console.log(taskId);
-  try {
-    const response = await http().get(`/api/tasks/${taskId}`, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-      },
-    });
-    task.value = response.data.data.attributes;
-  } catch (error) {
-    console.error("Error fetching task:", error);
-  }
-};
+const taskId = router.currentRoute.value.params.id;
+const { task, error, loading, fetchTaskById } = useTaskById();
 
 // Fetch task data on component mount
-onMounted(fetchTask);
+onMounted(() => fetchTaskById(taskId));
 console.log(task);
 </script>

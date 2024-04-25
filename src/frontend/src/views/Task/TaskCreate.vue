@@ -2,6 +2,7 @@
   <Layout>
     <div>
       <!-- <Head title="Create Task" /> -->
+      <flash-messages :message="message" />
       <h1 class="mb-8 text-3xl font-bold">
         <RouterLink class="text-orange-400 hover:text-orange-600" to="/tasks"
           >Tasks List</RouterLink
@@ -9,17 +10,33 @@
         <span class="text-orange-400 font-normal">/</span> Create
       </h1>
       <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
-        <form @submit.prevent="store">
+        <form @submit.prevent="store(task)">
           <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-            <text-input class="pb-8 pr-6 w-full" label="Name" />
-            <textarea-input class="pb-8 pr-6 w-full" label="Description" />
-
-            <!-- <text-input class="pb-8 pr-6 w-full" label="Due Date" /> -->
-            <input type="date" class="" />
+            <text-input
+              class="pb-8 pr-6 w-full"
+              label="Name"
+              v-model="task.name"
+            />
+            <textarea-input
+              class="pb-8 pr-6 w-full"
+              label="Description"
+              v-model="task.description"
+            />
+            {{ task.name }}
+            <text-input
+              class="pb-8 pr-6 w-full"
+              label="Due Date"
+              v-model="task.due_date"
+            />
+            <!-- <input type="date" class="" /> -->
 
             <!-- <text-input class="pb-8 pr-6 w-full lg:w-1/2" label="City" /> -->
 
-            <select-input class="pb-8 pr-6 w-full" label="Status">
+            <select-input
+              class="pb-8 pr-6 w-full"
+              label="Status"
+              v-model="task.status"
+            >
               <option :value="null" />
               <option value="In Progress">In Progress</option>
               <option value="Completed">Completed</option>
@@ -42,8 +59,20 @@
 
 <script setup>
 import TextInput from "../Shared/TextInput.vue";
+import FlashMessages from "../Shared/FlashMessages.vue";
 import TextareaInput from "../Shared/TextareaInput.vue";
 import Layout from "../Shared/Layout.vue";
 import SelectInput from "../Shared/SelectInput.vue";
 import LoadingButton from "../Shared/LoadingButton.vue";
+import { reactive } from "vue";
+import useTaskCreation from "../../composables/useTaskCreation";
+
+const { error, loading, store, message, success } = useTaskCreation();
+console.log(message);
+const task = reactive({
+  name: null,
+  description: null,
+  due_date: null,
+  status: null,
+});
 </script>

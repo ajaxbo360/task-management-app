@@ -64,6 +64,7 @@ import { reactive, onMounted } from "vue";
 import http from "@/helpers/http";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
+import { toast } from "vue3-toastify";
 
 const router = useRouter();
 const auth = useAuthStore();
@@ -91,8 +92,16 @@ const handleLogin = () => {
       console.log(response.data);
       auth.setUser(response.data.data.user);
       localStorage.setItem("token", JSON.stringify(response.data.data.token));
-      router.push({ name: "dashboard" });
+      toast(response.data.data.message, {
+        theme: "auto",
+        type: "success",
+        autoClose: 4000,
+      });
+      setTimeout(() => {
+        router.push({ name: "dashboard" });
+      }, 5000);
     })
+
     .catch((error) => {
       console.error(error);
 
