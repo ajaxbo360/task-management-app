@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Traits\HttpResponses;
@@ -83,7 +84,7 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreTaskRequest $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
         if (Auth::user()->id !== $task->user_id) {
             return $this->error('', 'Unauthorized to update the task', 401);
