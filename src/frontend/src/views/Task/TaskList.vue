@@ -61,7 +61,7 @@
 
                 <select
                   v-model="task.attributes.status"
-                  @change="updateTaskStatus(task.attributes.status)"
+                  @change="updateTaskStatus(task, task.id)"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-36 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                 >
                   <option
@@ -112,6 +112,7 @@ import { TailwindPagination } from "laravel-vue-pagination";
 import Pagination from "../Shared/Pagination.vue";
 import http from "@/helpers/http";
 import Icon from "../Shared/Icon.vue";
+import useTaskEdit from "@/composables/useTaskEdit";
 
 const { tasks, loading, error, fetchTasks } = useTasks();
 const currentPage = ref(1);
@@ -120,17 +121,10 @@ onMounted(() => {
 });
 
 const statusOptions = ["In Progress", "Completed"];
-const updateTaskStatus = async (task) => {
-  await http()
-    .put(`/api/tasks/${task.id}`, {
-      status: task.status,
-    })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+const { update } = useTaskEdit();
+const updateTaskStatus = async (task, id) => {
+  return update(id, task.attributes);
+  // console.log(task.attributes, id);
 };
 </script>
 
