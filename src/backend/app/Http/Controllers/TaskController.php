@@ -83,12 +83,19 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(StoreTaskRequest $request, Task $task)
     {
         if (Auth::user()->id !== $task->user_id) {
             return $this->error('', 'Unauthorized to update the task', 401);
         }
-        $task->update($request->all());
+        if ($task->update($request->all())) {
+            return $this->success([
+                'message' => "Task updated successfully",
+                'success' => true,
+
+            ]);
+        }
+
         return new TaskResource($task);
     }
 
