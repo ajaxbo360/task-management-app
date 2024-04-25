@@ -115,7 +115,6 @@ export default {
   props: {
     pagination: Object,
   },
-
   data() {
     return {
       page: this.pagination.current_page,
@@ -128,7 +127,13 @@ export default {
   },
   methods: {
     loadPage(page) {
-      return { page: page };
+      this.$inertia.get(
+        this.$page.url,
+        { page: page },
+        {
+          preserveState: true,
+        }
+      );
     },
   },
   computed: {

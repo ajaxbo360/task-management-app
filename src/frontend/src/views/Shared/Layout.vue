@@ -36,29 +36,28 @@
                   <div
                     class="mr-1 text-gray-700 group-hover:text-indigo-600 focus:text-indigo-600 whitespace-nowrap"
                   >
-                    <span>Brahim</span>
-                    <span class="hidden md:inline">&nbsp;Ajakak</span>
+                    <span>{{ auth.user?.name }}</span>
                   </div>
-                  <!-- <icon
+                  <icon
                     class="w-5 h-5 fill-gray-700 group-hover:fill-indigo-600 focus:fill-indigo-600"
                     name="cheveron-down"
-                  /> -->
+                  />
                 </div>
               </template>
               <template #dropdown>
                 <div class="mt-2 py-2 text-sm bg-white rounded shadow-xl">
                   <RouterLink
-                    class="block px-6 py-2 hover:text-white hover:bg-indigo-500"
+                    class="block px-6 py-2 hover:text-white hover:bg-orange-500"
                     to="/"
                     >My Profile</RouterLink
                   >
                   <RouterLink
-                    class="block px-6 py-2 hover:text-white hover:bg-indigo-500"
+                    class="block px-6 py-2 hover:text-white hover:bg-orange-500"
                     to="/"
                     >Manage Users</RouterLink
                   >
                   <RouterLink
-                    class="block px-6 py-2 w-full text-left hover:text-white hover:bg-indigo-500"
+                    class="block px-6 py-2 w-full text-left hover:text-white hover:bg-orange-500"
                     to="/logout"
                     method="delete"
                     as="button"
@@ -86,25 +85,15 @@
   </div>
 </template>
 
-<script>
-import Icon from "../Shared/Icon.vue";
+<script setup>
 import Logo from "../Shared/Logo.vue";
+import Icon from "../Shared/Icon.vue";
 import Dropdown from "../Shared/Dropdown.vue";
 import MainMenu from "../Shared/MainMenu.vue";
 // import FlashMessages from "../Shared/FlashMessages.vue";
 import { RouterLink } from "vue-router";
 
-export default {
-  components: {
-    Dropdown,
+import { useAuthStore } from "@/stores/auth";
 
-    Icon,
-
-    Logo,
-    MainMenu,
-  },
-  props: {
-    auth: Object,
-  },
-};
+const auth = useAuthStore();
 </script>

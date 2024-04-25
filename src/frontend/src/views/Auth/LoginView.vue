@@ -63,8 +63,11 @@
 import { reactive, onMounted } from "vue";
 import http from "@/helpers/http";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
 const router = useRouter();
+const auth = useAuthStore();
+console.log(auth);
 
 const credentials = reactive({
   email: "",
@@ -86,11 +89,13 @@ const handleLogin = () => {
     .post("/api/login", credentials)
     .then((response) => {
       console.log(response.data);
+      auth.setUser(response.data.data.user);
       localStorage.setItem("token", JSON.stringify(response.data.data.token));
       router.push({ name: "dashboard" });
     })
     .catch((error) => {
       console.error(error);
+
       alert(error.response.data.message);
     });
 };

@@ -22,11 +22,11 @@
           <!-- <span class="hidden md:inline">&nbsp;Tasks</span> -->
         </RouterLink>
       </div>
-      <div class="bg-white rounded-md shadow overflow-x-auto">
+      <div class="bg-white rounded-md shadow-md overflow-x-auto">
         <div v-if="loading" class="btn-spinner mr-2" />
-        <table class="w-full whitespace-nowrap shadow-2xl">
+        <table class="w-full whitespace-nowrap">
           <thead>
-            <tr class="text-left font-bold">
+            <tr class="text-left font-semibold text-slate-700">
               <th class="pb-4 pt-6 px-6">Name</th>
               <th class="pb-4 pt-6 px-6">Description</th>
               <th class="pb-4 pt-6 px-6">Status</th>
@@ -41,7 +41,7 @@
             >
               <td class="border-t">
                 <RouterLink
-                  class="flex items-center px-6 py-4 focus:text-indigo-500"
+                  class="flex items-center px-6 py-4 focus:text-orange-500"
                   to="`/tasks/${task.id}/edit`"
                 >
                   {{ task.attributes.name }}
@@ -88,11 +88,9 @@
                 </RouterLink>
               </td>
             </tr>
-            <!-- <tr v-if="tasks.value.length === 0">
-              <td class="px-6 py-4 border-t" colspan="4">
-                No organizations found.
-              </td>
-            </tr> -->
+            <tr v-if="tasks.length === 0">
+              <td class="px-6 py-4 border-t" colspan="4">No task found.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -116,18 +114,8 @@ import Pagination from "../Shared/Pagination.vue";
 const { tasks, loading, error, fetchTasks } = useTasks();
 const currentPage = ref(1);
 onMounted(() => {
-  fetchTasks(1);
+  fetchTasks(currentPage.value);
 });
-
-// watch(
-//   () => tasks.link,
-//   () => {
-//     fetchTasks(tasks.current_page);
-//   }
-// );
-
-console.log(tasks);
-console.log(tasks.value.data);
 </script>
 
 <style lang="scss" scoped></style>
