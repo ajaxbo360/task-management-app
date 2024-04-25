@@ -9,7 +9,8 @@
         <span class="text-orange-400 font-normal">/</span> Edit
       </h1>
       <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
-        <form @submit.prevent="store">
+        <flash-messages :error="error" />
+        <form @submit.prevent="update(taskId, task)">
           <div class="flex flex-wrap -mb-8 -mr-6 p-8">
             <text-input
               class="pb-8 pr-6 w-full"
@@ -57,20 +58,30 @@
 import TextInput from "../Shared/TextInput.vue";
 import TextareaInput from "../Shared/TextareaInput.vue";
 import Layout from "../Shared/Layout.vue";
-import SelectInput from "../Shared/SelectInput.vue";
+import FlashMessages from "../Shared/FlashMessages.vue";
 import LoadingButton from "../Shared/LoadingButton.vue";
 import useTaskById from "@/composables/useTaskById";
+import useTaskEdit from "@/composables/useTaskEdit";
 import { useRouter } from "vue-router";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, ref } from "vue";
 
 // Initialize router
 const router = useRouter();
+// const taskEdited = ref({
+//    name: null,
+//     description: null,
+//     due_date: null,
+//     status: null,
+// })
+
+// const taskEdited = ref()
 
 const statusOptions = ["In Progress", "Completed"];
 
 // Function to fetch task data based on ID
 const taskId = router.currentRoute.value.params.id;
-const { task, error, loading, fetchTaskById } = useTaskById();
+const { task, fetchTaskById } = useTaskById();
+const { update, error } = useTaskEdit();
 
 // Fetch task data on component mount
 onMounted(() => fetchTaskById(taskId));

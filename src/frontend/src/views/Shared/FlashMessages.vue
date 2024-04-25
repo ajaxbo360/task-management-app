@@ -29,7 +29,7 @@
     </div> -->
     <div
       class="flex items-center justify-between mb-8 max-w-3xl bg-red-500 rounded"
-      v-if="message"
+      v-if="error"
     >
       <div class="flex items-center">
         <svg
@@ -42,7 +42,7 @@
           />
         </svg>
         <div class="py-4 text-white text-sm font-medium">
-          {{ message }}
+          {{ error }}
         </div>
       </div>
       <button type="button" class="group mr-2 p-2">
@@ -66,11 +66,9 @@
 import { ref } from "vue";
 
 const props = defineProps({
-  message: {
+  error: {
     type: String,
     default: null,
   },
 });
-
-const show = ref(true);
 </script>

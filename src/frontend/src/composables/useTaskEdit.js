@@ -1,21 +1,28 @@
 import { ref } from "vue";
 import http from "@/helpers/http";
+import { toast } from "vue3-toastify";
 
 export default function useTaskEdit() {
   const loading = ref(false);
   const error = ref(null);
 
-  const store = async (taskId) => {
+  const update = async (taskId, editTask) => {
     loading.value = true;
+
     try {
-      await http().post(`/api/tasks`, {
+      const response = await http().patch(`/api/tasks/${taskId}`, editTask, {
         headers: {
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
       });
-      console.log(task);
+
+      toast(response.data.data.message, {
+        theme: "auto",
+        type: "success",
+        autoClose: 4000,
+      });
     } catch (err) {
-      error.value = err.message;
+      error.value = err.response.data.message;
     } finally {
       loading.value = false;
     }
@@ -24,6 +31,6 @@ export default function useTaskEdit() {
   return {
     loading,
     error,
-    store,
+    update,
   };
 }

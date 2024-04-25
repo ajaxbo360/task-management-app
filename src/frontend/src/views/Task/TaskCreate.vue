@@ -2,7 +2,8 @@
   <Layout>
     <div>
       <!-- <Head title="Create Task" /> -->
-      <flash-messages :message="message" />
+      <flash-messages :error="error" />
+      <!-- <div class="bg-red-800 text-white p-6" v-if="error">{{ error }}</div> -->
       <h1 class="mb-8 text-3xl font-bold">
         <RouterLink class="text-orange-400 hover:text-orange-600" to="/tasks"
           >Tasks List</RouterLink
@@ -67,8 +68,8 @@ import LoadingButton from "../Shared/LoadingButton.vue";
 import { reactive } from "vue";
 import useTaskCreation from "../../composables/useTaskCreation";
 
-const { error, loading, store, message, success } = useTaskCreation();
-console.log(message);
+const { error, loading, store } = useTaskCreation();
+
 const task = reactive({
   name: null,
   description: null,
