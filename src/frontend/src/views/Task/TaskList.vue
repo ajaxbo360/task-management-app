@@ -40,48 +40,49 @@
               class="hover:bg-gray-100 focus-within:bg-gray-100"
             >
               <td class="border-t">
-                <RouterLink
-                  class="flex items-center px-6 py-4 focus:text-orange-500"
-                  to="`/tasks/${task.id}/edit`"
-                >
-                  {{ task.attributes.name }}
-                  <!-- <icon
+                {{ task.attributes.name }}
+                <!-- <icon
                   v-if="organization.deleted_at"
                   name="trash"
                   class="flex-shrink-0 ml-2 w-3 h-3 fill-gray-400"
                 /> -->
-                </RouterLink>
               </td>
               <td class="border-t">
-                <RouterLink
-                  class="flex items-center px-6 py-4"
-                  to="/"
-                  tabindex="-1"
-                >
-                  {{ task.attributes.description }}
-                </RouterLink>
+                {{ task.attributes.description }}
               </td>
               <td class="border-t">
-                <RouterLink
+                <!-- <RouterLink
                   class="flex items-center px-6 py-4"
                   to="/"
                   tabindex="-1"
                 >
                   {{ task.attributes.status }}
-                </RouterLink>
+                </RouterLink> -->
+
+                <select
+                  v-model="status"
+                  @change="updateTaskStatus(task.attributes.status)"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                >
+                  <option
+                    v-for="statusOption in statusOptions"
+                    :key="statusOption"
+                    :value="statusOption"
+                  >
+                    {{ statusOption[0] }}
+                  </option>
+                </select>
               </td>
               <td class="border-t">
-                <RouterLink
-                  class="flex items-center px-6 py-4"
-                  to="/"
-                  tabindex="-1"
-                >
-                  {{ task.attributes.due_date }}
-                </RouterLink>
+                {{ task.attributes.due_date }}
               </td>
               <td class="w-px border-t">
-                <RouterLink class="flex items-center px-4" to="/" tabindex="-1">
-                  <icon
+                <RouterLink
+                  class="flex items-center px-4"
+                  :to="`/task/${task.id}/edit`"
+                  tabindex="-1"
+                >
+                  <Icon
                     name="cheveron-right"
                     class="block w-6 h-6 fill-gray-400"
                   />
@@ -105,17 +106,33 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import Layout from "../Shared/Layout.vue";
 import useTasks from "@/composables/useTasks";
 import { TailwindPagination } from "laravel-vue-pagination";
 import Pagination from "../Shared/Pagination.vue";
+import http from "@/helpers/http";
+import Icon from "../Shared/Icon.vue";
 
 const { tasks, loading, error, fetchTasks } = useTasks();
 const currentPage = ref(1);
 onMounted(() => {
   fetchTasks(currentPage.value);
 });
+
+const statusOptions = [tasks];
+const updateTaskStatus = async (task) => {
+  await http()
+    .put(`/api/tasks/${task.id}`, {
+      status: task.status,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 </script>
 
 <style lang="scss" scoped></style>
