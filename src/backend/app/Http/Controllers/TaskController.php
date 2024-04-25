@@ -34,9 +34,9 @@ class TaskController extends Controller
 
         // Sorting
         $sortField = $request->input('sort_by', 'due_date');
-        $sortDirection = $request->input('sort_dir', 'asc');
+        // $sortDirection = $request->input('sort_dir', 'asc');
 
-        $tasksQuery->orderBy($sortField, $sortDirection);
+        $tasksQuery->orderBy($sortField);
 
 
 
@@ -61,6 +61,13 @@ class TaskController extends Controller
             'due_date' => $request->due_date,
             'status' => $request->status
         ]);
+        if ($task) {
+            return $this->success([
+                'message' => "Task created successfully",
+                'success' => true,
+
+            ]);
+        }
         return new TaskResource($task);
     }
 
