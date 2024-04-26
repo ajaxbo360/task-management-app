@@ -10,7 +10,7 @@
         </RouterLink>
       </div>
       <dir class="flex items-center">
-        <!-- <div class="flex items-center mr-4">
+        <div class="flex items-center mr-4">
           <label class="block text-gray-700 mr-4">SortBy:</label>
           <select
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-36 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 my-2"
@@ -21,7 +21,7 @@
               {{ SortByOptions }}
             </option>
           </select>
-        </div> -->
+        </div>
         <label class="block text-gray-700 mr-4">Filterby:</label>
         <select
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-36 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 my-2"
@@ -155,10 +155,10 @@ watch(status, async (newStatus) => {
   await fetchTasks(currentPage.value, newStatus);
   console.log(newStatus);
 });
-// watch(date, async (newDate) => {
-//   await fetchTasks(currentPage.value, newDate);
-//   console.log(newDate);
-// });
+watch(date, async (newDate) => {
+  await fetchTasks(newDate);
+  console.log(newDate);
+});
 
 const updateTaskStatus = async (task, id) => {
   return update(id, task.attributes);
