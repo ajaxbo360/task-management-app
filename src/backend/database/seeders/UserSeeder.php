@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         User::factory()->create([
 
-            'name' => 'Admin',
+            'name' => 'SquaHR Team',
 
             'email' => 'admin@example.com',
 

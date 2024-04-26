@@ -22,9 +22,7 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $per_page = 10;
-        // return TaskResource::collection(
-        //     Task::where("user_id", Auth::user()->id)->get()
-        // );
+
         // Get user's tasks
         $tasksQuery = Task::where("user_id", Auth::user()->id);
 
@@ -34,8 +32,8 @@ class TaskController extends Controller
         }
 
         // Sorting
-        $sortField = $request->input('sort_by', 'due_date');
-        // $sortDirection = $request->input('sort_dir', 'asc');
+        $sortField = $request->input('sort_by',  'due_date');
+
 
         $tasksQuery->orderBy($sortField);
 

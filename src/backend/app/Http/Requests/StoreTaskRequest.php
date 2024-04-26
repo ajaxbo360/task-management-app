@@ -26,7 +26,7 @@ class StoreTaskRequest extends FormRequest
             'description' => ['required'],
 
             'due_date' => ['required', 'date', 'after:today'],
-            'status' => ['required', 'in:In Progress,Completed'],
+            'status' => ['required', 'in:New,In Progress,Completed'],
         ];
     }
 }
