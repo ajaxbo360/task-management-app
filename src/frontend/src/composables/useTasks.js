@@ -8,7 +8,7 @@ export default function useTasks() {
 
   const fetchTasks = async (
     page = 1,
-    status = "In Progress",
+    status = "New",
     sortBy = "created_at"
   ) => {
     loading.value = true;

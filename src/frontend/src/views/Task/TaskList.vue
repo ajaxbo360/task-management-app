@@ -140,10 +140,10 @@ const confirmDelete = (task) => {
   }
 };
 
-const statusOptions = ["In Progress", "Completed"];
-const filterOptions = ref(["In Progress", "Completed"]);
+const statusOptions = ["New","In Progress", "Completed"];
+const filterOptions = ref(["New", "In Progress", "Completed"]);
 const sortOption = ref(["created_at", "updated_at", "due_date"]);
-const status = ref(["In Progress", "Completed"]);
+const status = ref(["New","In Progress", "Completed"]);
 
 const date = ref(["created_at", "updated_at", "due_date"]);
 const { update } = useTaskEdit();

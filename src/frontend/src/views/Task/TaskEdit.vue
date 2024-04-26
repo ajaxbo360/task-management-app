@@ -74,7 +74,7 @@ import { onMounted, ref } from "vue";
 // Initialize router
 const router = useRouter();
 
-const statusOptions = ["In Progress", "Completed"];
+const statusOptions = ["New", "In Progress", "Completed"];
 
 // Function to fetch task data based on ID
 const taskId = router.currentRoute.value.params.id;
