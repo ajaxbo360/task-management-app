@@ -2,26 +2,37 @@
   <Layout>
     <div>
       <div class="flex items-center justify-end mb-6">
-        <!-- <search-filter
-        v-model="form.search"
-        class="mr-4 w-full max-w-md"
-        @reset="reset"
-      >
-        <label class="block text-gray-700">Trashed:</label>
-        <select v-model="form.trashed" class="form-select mt-1 w-full">
-          <option :value="null" />
-          <option value="with">With Trashed</option>
-          <option value="only">Only Trashed</option>
-        </select>
-      </search-filter> -->
         <RouterLink
           class="float-end px-6 py-3 rounded bg-orange-400 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-orange-500 focus:bg-orange-500"
           to="/task/create"
         >
           <span>Create a Task</span>
-          <!-- <span class="hidden md:inline">&nbsp;Tasks</span> -->
         </RouterLink>
       </div>
+      <dir class="flex items-center">
+        <!-- <div class="flex items-center mr-4">
+          <label class="block text-gray-700 mr-4">SortBy:</label>
+          <select
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-36 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 my-2"
+            v-model="date"
+            @change="SortByOption(date)"
+          >
+            <option v-for="SortByOptions in sortOption" :key="SortByOptions">
+              {{ SortByOptions }}
+            </option>
+          </select>
+        </div> -->
+        <label class="block text-gray-700 mr-4">Filterby:</label>
+        <select
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-36 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 my-2"
+          v-model="status"
+          @change="FilterStatus(status)"
+        >
+          <option v-for="filterOption in filterOptions" :key="filterOption">
+            {{ filterOption }}
+          </option>
+        </select>
+      </dir>
       <div class="bg-white rounded-md drop-shadow-2xl overflow-x-auto p-3">
         <div v-if="loading" class="btn-spinner mr-2" />
         <table class="w-full whitespace-nowrap">
@@ -104,7 +115,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import Layout from "../Shared/Layout.vue";
 import useTasks from "@/composables/useTasks";
 import useDeleteTask from "@/composables/useDeleteTask";
@@ -112,6 +123,8 @@ import { TailwindPagination } from "laravel-vue-pagination";
 
 import Icon from "../Shared/Icon.vue";
 import useTaskEdit from "@/composables/useTaskEdit";
+import useFilterByStatus from "@/composables/useFilterByStatus";
+import useSortBy from "@/composables/useSortBy";
 
 const { tasks, loading, fetchTasks } = useTasks();
 const { destroy } = useDeleteTask();
@@ -119,18 +132,45 @@ const currentPage = ref(1);
 onMounted(() => {
   fetchTasks(currentPage.value);
 });
+
 const confirmDelete = (task) => {
   if (confirm("Are you sure you want to delete this task")) {
     destroy(task.id);
     fetchTasks();
   }
 };
+
 const statusOptions = ["In Progress", "Completed"];
+const filterOptions = ref(["In Progress", "Completed"]);
+const sortOption = ref(["created_at", "updated_at", "due_date"]);
+const status = ref(["In Progress", "Completed"]);
+
+const date = ref(["created_at", "updated_at", "due_date"]);
 const { update } = useTaskEdit();
+const { filter, filterdedTasks } = useFilterByStatus();
+const { sortBy, sortedTasks } = useSortBy();
+console.log(tasks);
+
+watch(status, async (newStatus) => {
+  await fetchTasks(currentPage.value, newStatus);
+  console.log(newStatus);
+});
+// watch(date, async (newDate) => {
+//   await fetchTasks(currentPage.value, newDate);
+//   console.log(newDate);
+// });
+
 const updateTaskStatus = async (task, id) => {
   return update(id, task.attributes);
-  // console.log(task.attributes, id);
 };
+
+const FilterStatus = async (statusName) => {
+  return await filter(statusName);
+};
+// const SortByOption = async (dueDate) => {
+//   // console.log(dueDate);
+//   return await sortBy(dueDate);
+// };
 </script>
 
 <style lang="scss" scoped></style>

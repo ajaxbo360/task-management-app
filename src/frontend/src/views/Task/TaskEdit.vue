@@ -68,8 +68,6 @@ import { onMounted, ref } from "vue";
 // Initialize router
 const router = useRouter();
 
-
-
 const statusOptions = ["In Progress", "Completed"];
 
 // Function to fetch task data based on ID
@@ -79,5 +77,4 @@ const { update, error } = useTaskEdit();
 
 // Fetch task data on component mount
 onMounted(() => fetchTaskById(taskId));
-
 </script>

@@ -1,27 +1,9 @@
 <template>
-  <div class="h-screen">
-    <div class="mb-4">
-      <RouterLink class="group flex items-center py-3" to="/">
+  <div class="h-screen flex justify-between">
+    <div class="mb-4 flex flex-grow">
+      <RouterLink class="group flex items-center py-3" to="/tasks">
         <icon name="dashboard" class="mr-2 w-4 h-4" />
         <div>Dashboard</div>
-      </RouterLink>
-    </div>
-    <div class="mb-4">
-      <RouterLink class="group flex items-center py-3" to="/">
-        <icon name="office" class="mr-2 w-4 h-4" />
-        <div>Organizations</div>
-      </RouterLink>
-    </div>
-    <div class="mb-4">
-      <RouterLink class="group flex items-center py-3" to="/">
-        <icon name="users" class="mr-2 w-4 h-4" />
-        <div>Contacts</div>
-      </RouterLink>
-    </div>
-    <div class="mb-4">
-      <RouterLink class="group flex items-center py-3" to="/">
-        <icon name="printer" class="mr-2 w-4 h-4" />
-        <div>Reports</div>
       </RouterLink>
     </div>
   </div>

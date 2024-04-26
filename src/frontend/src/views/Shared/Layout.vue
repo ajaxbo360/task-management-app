@@ -9,22 +9,15 @@
           >
             <logo class="fill-white" width="120" height="28" />
 
-            <dropdown class="md:hidden" placement="bottom-end">
-              <template>
-                <svg
-                  class="w-6 h-6 fill-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-                </svg>
-              </template>
-              <!-- <template #dropdown>
-                <div class="mt-2 px-8 py-4 bg-white rounded shadow-lg">
-                  <main-menu />
-                </div>
-              </template> -->
-            </dropdown>
+            <template>
+              <svg
+                class="w-6 h-6 fill-white"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+              </svg>
+            </template>
           </div>
           <div
             class="md:text-md flex items-center justify-between p-6 w-full text-sm bg-white border-b md:px-12 md:py-0"
@@ -72,7 +65,6 @@
 <script setup>
 import Logo from "../Shared/Logo.vue";
 
-import Dropdown from "../Shared/Dropdown.vue";
 import MainMenu from "../Shared/MainMenu.vue";
 
 import { useAuthStore } from "@/stores/auth";
