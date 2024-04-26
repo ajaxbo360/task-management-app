@@ -3,7 +3,7 @@
     <div class="w-full max-w-md">
       <form
         class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden"
-        @submit.prevent="handleLogin"
+        @submit.prevent="signIn(credentials)"
       >
         <div class="px-10 py-12">
           <h1 class="text-center text-3xl font-bold">Welcome Back!</h1>
@@ -47,12 +47,18 @@
           </div>
         </div>
         <div class="flex px-10 py-4 bg-gray-100 border-t border-gray-100">
-          <button
+          <!-- <button
             class="px-6 py-3 rounded bg-black text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-slate-500 focus:bg-slate-500 ml-auto"
             type="submit"
           >
             Login
-          </button>
+          </button> -->
+          <loading-button
+            :loading="loading"
+            class="px-6 py-3 rounded bg-black text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-slate-500 focus:bg-slate-500 ml-auto"
+            type="submit"
+            >Login</loading-button
+          >
         </div>
       </form>
     </div>
@@ -60,16 +66,15 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from "vue";
-import http from "@/helpers/http";
+import { ref, onMounted, reactive } from "vue";
+import LoadingButton from "../Shared/LoadingButton.vue";
 import { useRouter } from "vue-router";
-import { useAuthStore } from "@/stores/auth";
-import { toast } from "vue3-toastify";
+
+import useLoging from "../../composables/auth/useLoging";
 
 const router = useRouter();
-const auth = useAuthStore();
-console.log(auth);
 
+const { signIn, loading, error } = useLoging();
 const credentials = reactive({
   email: "",
   password: "",
@@ -83,31 +88,6 @@ onMounted(() => {
     });
   }
 });
-
-// login function call
-const handleLogin = () => {
-  http()
-    .post("/api/login", credentials)
-    .then((response) => {
-      console.log(response.data);
-      auth.setUser(response.data.data.user);
-      localStorage.setItem("token", JSON.stringify(response.data.data.token));
-      toast(response.data.data.message, {
-        theme: "auto",
-        type: "success",
-        autoClose: 4000,
-      });
-      setTimeout(() => {
-        router.push({ name: "dashboard" });
-      }, 5000);
-    })
-
-    .catch((error) => {
-      console.error(error);
-
-      alert(error.response.data.message);
-    });
-};
 </script>
 
 <style lang="scss" scoped></style>

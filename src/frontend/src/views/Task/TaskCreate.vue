@@ -1,9 +1,8 @@
 <template>
   <Layout>
     <div>
-      <!-- <Head title="Create Task" /> -->
       <flash-messages :error="error" />
-      <!-- <div class="bg-red-800 text-white p-6" v-if="error">{{ error }}</div> -->
+
       <h1 class="mb-8 text-3xl font-bold">
         <RouterLink class="text-orange-400 hover:text-orange-600" to="/tasks"
           >Tasks List</RouterLink
@@ -23,15 +22,12 @@
               label="Description"
               v-model="task.description"
             />
-            {{ task.name }}
+
             <text-input
               class="pb-8 pr-6 w-full"
               label="Due Date"
               v-model="task.due_date"
             />
-            <!-- <input type="date" class="" /> -->
-
-            <!-- <text-input class="pb-8 pr-6 w-full lg:w-1/2" label="City" /> -->
 
             <select-input
               class="pb-8 pr-6 w-full"
@@ -47,6 +43,7 @@
             class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100"
           >
             <loading-button
+              :loading="loading"
               class="px-6 py-3 rounded bg-orange-600 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-orange-400 focus:bg-orange-400"
               type="submit"
               >Create Task</loading-button

@@ -10,7 +10,7 @@
             <logo class="fill-white" width="120" height="28" />
 
             <dropdown class="md:hidden" placement="bottom-end">
-              <template #default>
+              <template>
                 <svg
                   class="w-6 h-6 fill-white"
                   xmlns="http://www.w3.org/2000/svg"
@@ -19,53 +19,38 @@
                   <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
                 </svg>
               </template>
-              <template #dropdown>
+              <!-- <template #dropdown>
                 <div class="mt-2 px-8 py-4 bg-white rounded shadow-lg">
                   <main-menu />
                 </div>
-              </template>
+              </template> -->
             </dropdown>
           </div>
           <div
             class="md:text-md flex items-center justify-between p-6 w-full text-sm bg-white border-b md:px-12 md:py-0"
           >
             <div class="mr-4 mt-1">Task Management System</div>
-            <dropdown class="mt-1" placement="bottom-end">
-              <template #default>
-                <div class="group flex items-center cursor-pointer select-none">
-                  <div
-                    class="mr-1 text-gray-700 group-hover:text-indigo-600 focus:text-indigo-600 whitespace-nowrap"
-                  >
-                    <span>{{ auth.user?.name }}</span>
-                  </div>
-                  <icon
-                    class="w-5 h-5 fill-gray-700 group-hover:fill-indigo-600 focus:fill-indigo-600"
-                    name="cheveron-down"
+            <div class="flex space-x-1">
+              <div class="flex items-center">
+                <div
+                  class="mr-3 text-sm text-gray-700 group-hover:text-gray-400 focus:text-gray-400 whitespace-nowrap"
+                >
+                  <span>{{ auth.user?.name }}</span>
+                </div>
+              </div>
+              <a href="#" type="button" @click="logout">
+                <svg
+                  class="w-8 h-8 fill-gray-700 group-hover:fill-orange-600 focus:fill-orange-600"
+                  xmlns="http://www.w3.org/2000/svg"
+                  version="1.1"
+                  viewBox="-5.0 -10.0 110.0 135.0"
+                >
+                  <path
+                    d="m66.898 64.891v4.8516c0 8.2383-6.8984 14.941-15.391 14.941l-21.988-0.003906c-8.4883 0-15.391-6.6992-15.391-14.941v-39.477c0-8.2383 6.8984-14.941 15.391-14.941h21.98c8.4883 0 15.391 6.6992 15.391 14.941v4.2891c0 1.9297-1.5703 3.5-3.5 3.5s-3.5-1.5703-3.5-3.5v-4.2891c0-4.3789-3.7617-7.9414-8.3906-7.9414h-21.98c-4.6289 0-8.3906 3.5586-8.3906 7.9414v39.48c0 4.3789 3.7617 7.9414 8.3906 7.9414h21.98c4.6289 0 8.3906-3.5586 8.3906-7.9414v-4.8516c0-1.9297 1.5703-3.5 3.5-3.5s3.5 1.5703 3.5 3.5zm17.988-17.309-9.1484-9.5312c-1.3398-1.3984-3.5586-1.4414-4.9492-0.10156-1.3906 1.3398-1.4414 3.5508-0.10156 4.9492l3.4609 3.6016h-23.641c-1.9297 0-3.5 1.5703-3.5 3.5s1.5703 3.5 3.5 3.5h23.238l-2.9805 2.8984c-1.3789 1.3516-1.4102 3.5586-0.058594 4.9492 0.67969 0.69922 1.5898 1.0586 2.5 1.0586 0.91016 0 1.7695-0.32812 2.4492-1l9.1484-8.8984c1.3789-1.3398 1.4219-3.5508 0.078124-4.9297z"
                   />
-                </div>
-              </template>
-              <template #dropdown>
-                <div class="mt-2 py-2 text-sm bg-white rounded shadow-xl">
-                  <RouterLink
-                    class="block px-6 py-2 hover:text-white hover:bg-orange-500"
-                    to="/"
-                    >My Profile</RouterLink
-                  >
-                  <RouterLink
-                    class="block px-6 py-2 hover:text-white hover:bg-orange-500"
-                    to="/"
-                    >Manage Users</RouterLink
-                  >
-                  <RouterLink
-                    class="block px-6 py-2 w-full text-left hover:text-white hover:bg-orange-500"
-                    to="/logout"
-                    method="delete"
-                    as="button"
-                    >Logout</RouterLink
-                  >
-                </div>
-              </template>
-            </dropdown>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
         <div class="md:flex md:flex-grow md:overflow-hidden h-screen">
@@ -76,7 +61,6 @@
             class="px-4 py-8 md:flex-1 md:p-12 md:overflow-y-auto"
             scroll-region
           >
-            <!-- <flash-messages /> -->
             <slot />
           </div>
         </div>
@@ -87,13 +71,14 @@
 
 <script setup>
 import Logo from "../Shared/Logo.vue";
-import Icon from "../Shared/Icon.vue";
+
 import Dropdown from "../Shared/Dropdown.vue";
 import MainMenu from "../Shared/MainMenu.vue";
-// import FlashMessages from "../Shared/FlashMessages.vue";
-import { RouterLink } from "vue-router";
 
 import { useAuthStore } from "@/stores/auth";
+import useLogout from "../../composables/auth/useLogout";
+
+const { logout, loading, error } = useLogout();
 
 const auth = useAuthStore();
 </script>

@@ -86,8 +86,6 @@ const credentials = reactive({
   password: "",
 });
 
-console.log(credentials);
-
 // check if user is already logged in
 onMounted(() => {
   if (localStorage.getItem("token")) {

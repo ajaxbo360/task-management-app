@@ -1,7 +1,6 @@
 <template>
   <Layout>
     <div>
-      <!-- <Head title="Create Task" /> -->
       <h1 class="mb-8 text-3xl font-bold">
         <RouterLink class="text-orange-400 hover:text-orange-600" to="/tasks"
           >Tasks List</RouterLink
@@ -43,6 +42,7 @@
             class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100"
           >
             <loading-button
+              :loading="loading"
               class="px-6 py-3 rounded bg-orange-600 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-orange-400 focus:bg-orange-400"
               type="submit"
               >Edit Task</loading-button
@@ -67,14 +67,8 @@ import { onMounted, ref } from "vue";
 
 // Initialize router
 const router = useRouter();
-// const taskEdited = ref({
-//    name: null,
-//     description: null,
-//     due_date: null,
-//     status: null,
-// })
 
-// const taskEdited = ref()
+
 
 const statusOptions = ["In Progress", "Completed"];
 
@@ -85,5 +79,5 @@ const { update, error } = useTaskEdit();
 
 // Fetch task data on component mount
 onMounted(() => fetchTaskById(taskId));
-console.log(task);
+
 </script>

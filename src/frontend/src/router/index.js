@@ -2,7 +2,7 @@ import http from "@/helpers/http";
 import LoginView from "@/views/Auth/LoginView.vue";
 import RegisterView from "@/views/Auth/RegisterView.vue";
 import TaskList from "@/views/Task/TaskList.vue";
-import TaskDetail from "@/views/Task/TaskDetail.vue";
+
 import TaskCreate from "@/views/Task/TaskCreate.vue";
 import TaskEdit from "@/views/Task/TaskEdit.vue";
 import NotFound from "@/views/NotFound.vue";
@@ -33,12 +33,6 @@ const router = createRouter({
       component: RegisterView,
     },
 
-    {
-      path: "/task/:id",
-      name: "TaskDetail",
-      component: TaskDetail,
-      props: true,
-    },
     {
       path: "/task/create",
       name: "TaskCreate",
