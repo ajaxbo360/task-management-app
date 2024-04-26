@@ -28,16 +28,21 @@
               label="Due Date"
               v-model="task.due_date"
             />
-
-            <select
-              v-model="task.status"
-              @change="updateTaskStatus(task.status)"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 mr-5"
-            >
-              <option v-for="statusOption in statusOptions" :key="statusOption">
-                {{ statusOption }}
-              </option>
-            </select>
+            <div class="w-full mr-5">
+              <label>Status:</label>
+              <select
+                v-model="task.status"
+                @change="updateTaskStatus(task.status)"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 mr-5"
+              >
+                <option
+                  v-for="statusOption in statusOptions"
+                  :key="statusOption"
+                >
+                  {{ statusOption }}
+                </option>
+              </select>
+            </div>
           </div>
           <div
             class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100"
