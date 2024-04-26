@@ -104,7 +104,7 @@
           </tbody>
         </table>
       </div>
-
+      <Pagination :links="tasks.links" />
       <TailwindPagination
         :data="tasks"
         @pagination-change-page="fetchTasks"
@@ -120,6 +120,7 @@ import Layout from "../Shared/Layout.vue";
 import useTasks from "@/composables/useTasks";
 import useDeleteTask from "@/composables/useDeleteTask";
 import { TailwindPagination } from "laravel-vue-pagination";
+// import Pagination from "laravel-vue-pagination";
 
 import Icon from "../Shared/Icon.vue";
 import useTaskEdit from "@/composables/useTaskEdit";
@@ -140,10 +141,10 @@ const confirmDelete = (task) => {
   }
 };
 
-const statusOptions = ["New","In Progress", "Completed"];
+const statusOptions = ["New", "In Progress", "Completed"];
 const filterOptions = ref(["New", "In Progress", "Completed"]);
 const sortOption = ref(["created_at", "updated_at", "due_date"]);
-const status = ref(["New","In Progress", "Completed"]);
+const status = ref(["New", "In Progress", "Completed"]);
 
 const date = ref(["created_at", "updated_at", "due_date"]);
 const { update } = useTaskEdit();

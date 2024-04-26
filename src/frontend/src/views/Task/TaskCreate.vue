@@ -64,7 +64,7 @@ import TextareaInput from "../Shared/TextareaInput.vue";
 import Layout from "../Shared/Layout.vue";
 import SelectInput from "../Shared/SelectInput.vue";
 import LoadingButton from "../Shared/LoadingButton.vue";
-import { reactive, watch } from "vue";
+import { reactive } from "vue";
 import useTaskCreation from "../../composables/useTaskCreation";
 
 const { error, loading, store, taskCreation } = useTaskCreation();
