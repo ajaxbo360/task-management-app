@@ -25,6 +25,7 @@
 
             <text-input
               class="pb-8 pr-6 w-full"
+              type="date"
               label="Due Date"
               v-model="task.due_date"
             />
@@ -62,10 +63,10 @@ import TextareaInput from "../Shared/TextareaInput.vue";
 import Layout from "../Shared/Layout.vue";
 import SelectInput from "../Shared/SelectInput.vue";
 import LoadingButton from "../Shared/LoadingButton.vue";
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
 import useTaskCreation from "../../composables/useTaskCreation";
 
-const { error, loading, store } = useTaskCreation();
+const { error, loading, store, taskCreation } = useTaskCreation();
 
 const task = reactive({
   name: null,

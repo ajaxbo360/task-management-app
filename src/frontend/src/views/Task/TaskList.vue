@@ -125,7 +125,7 @@ import Icon from "../Shared/Icon.vue";
 import useTaskEdit from "@/composables/useTaskEdit";
 import useFilterByStatus from "@/composables/useFilterByStatus";
 import useSortBy from "@/composables/useSortBy";
-
+// import draggable from "@/vuedraggable";
 const { tasks, loading, fetchTasks } = useTasks();
 const { destroy } = useDeleteTask();
 const currentPage = ref(1);
@@ -167,10 +167,10 @@ const updateTaskStatus = async (task, id) => {
 const FilterStatus = async (statusName) => {
   return await filter(statusName);
 };
-// const SortByOption = async (dueDate) => {
-//   // console.log(dueDate);
-//   return await sortBy(dueDate);
-// };
+const SortByOption = async (dueDate) => {
+  // console.log(dueDate);
+  return await sortBy(dueDate);
+};
 </script>
 
 <style lang="scss" scoped></style>

@@ -7,6 +7,7 @@ export default function useTaskCreation() {
   const error = ref(null);
   const success = ref(false);
   const message = ref(null);
+  const taskCreation = ref(false);
 
   const store = async (task) => {
     loading.value = true;
@@ -21,16 +22,21 @@ export default function useTaskCreation() {
         type: "success",
         autoClose: 5000,
       });
+
+      taskCreation.value = true;
     } catch (err) {
       error.value = err.response.data.message;
+      taskCreation.value = false;
     } finally {
       loading.value = false;
+      taskCreation.value = true;
     }
   };
 
   return {
     loading,
     error,
+    taskCreation,
     store,
   };
 }

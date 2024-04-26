@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div id="dropdown" />
+    <div />
     <div class="md:flex md:flex-col h-full">
       <div class="md:flex md:flex-col md:h-screen">
         <div class="md:flex md:flex-shrink-0">
           <div
             class="flex items-center justify-between px-6 py-6 bg-orange-500 md:flex-shrink-0 md:justify-center md:w-56"
           >
-            <logo class="fill-white" width="120" height="28" />
+            <div class="text-2xl font-semibold text-white">SquaHR</div>
 
             <template>
               <svg
@@ -33,7 +33,7 @@
               </div>
               <a href="#" type="button" @click="logout">
                 <svg
-                  class="w-8 h-8 fill-gray-700 group-hover:fill-orange-600 focus:fill-orange-600"
+                  class="w-8 h-8 fill-gray-700 hover:fill-orange-600 focus:fill-orange-600"
                   xmlns="http://www.w3.org/2000/svg"
                   version="1.1"
                   viewBox="-5.0 -10.0 110.0 135.0"
@@ -63,14 +63,12 @@
 </template>
 
 <script setup>
-import Logo from "../Shared/Logo.vue";
-
 import MainMenu from "../Shared/MainMenu.vue";
 
 import { useAuthStore } from "@/stores/auth";
 import useLogout from "../../composables/auth/useLogout";
 
-const { logout, loading, error } = useLogout();
+const { logout } = useLogout();
 
 const auth = useAuthStore();
 </script>

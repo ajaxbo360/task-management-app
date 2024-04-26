@@ -9,14 +9,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { RouterLink } from "vue-router";
 import Icon from "../Shared/Icon.vue";
-
-export default {
-  components: {
-    Icon,
-    RouterLink,
-  },
-};
 </script>
