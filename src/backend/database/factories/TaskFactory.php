@@ -24,7 +24,7 @@ class TaskFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->sentence(),
-            'status' => TaskStatusEnum::InProgress,
+            'status' => TaskStatusEnum::New,
             'due_date' => $this->faker->dateTimeBetween('now', '+30 days'),
             'user_id' => User::all()->random()->id,
 
