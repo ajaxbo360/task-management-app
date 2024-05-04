@@ -31,7 +31,7 @@
                   <span>{{ auth.user?.name }}</span>
                 </div>
               </div>
-              <a href="#" type="button" @click="logout">
+              <a href="#" name="logout" type="button" @click="logout">
                 <svg
                   class="w-8 h-8 fill-gray-700 hover:fill-orange-600 focus:fill-orange-600"
                   xmlns="http://www.w3.org/2000/svg"

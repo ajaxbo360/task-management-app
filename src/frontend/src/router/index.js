@@ -19,44 +19,36 @@ const router = createRouter({
       path: "/tasks",
       name: "dashboard",
 
-      component: TaskList,
+      component: () => import("../views/Task/TaskList.vue"),
     },
 
     {
       path: "/login",
       name: "login",
-      component: LoginView,
+      component: () => import("../views/Auth/LoginView.vue"),
     },
     {
       path: "/register",
       name: "register",
-      component: RegisterView,
+      component: () => import("../views/Auth/RegisterView.vue"),
     },
 
     {
       path: "/task/create",
       name: "TaskCreate",
-      component: TaskCreate,
+      component: () => import("../views/Task/TaskCreate.vue"),
     },
     {
       path: "/task/:id/edit",
       name: "TaskEdit",
-      component: TaskEdit,
+      component: () => import("../views/Task/TaskEdit.vue"),
       props: true,
     },
     {
       path: "/:catchAll(.*)",
       name: "NotFound",
-      component: NotFound,
+      component: () => import("../views/NotFound.vue"),
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
   ],
 });
 // Check if the user is authenticated.

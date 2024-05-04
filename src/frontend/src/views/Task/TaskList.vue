@@ -11,9 +11,10 @@
       </div>
       <dir class="flex items-center">
         <div class="flex items-center mr-4">
-          <label class="block text-gray-700 mr-4">SortBy:</label>
+          <label class="block text-gray-700 mr-4" for="sortBy">SortBy:</label>
           <select
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-36 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 my-2"
+            id="sortBy"
             v-model="date"
             @change="SortByOption(date)"
           >
@@ -22,9 +23,10 @@
             </option>
           </select>
         </div>
-        <label class="block text-gray-700 mr-4">Filterby:</label>
+        <label class="block text-gray-700 mr-4" for="status">Filterby:</label>
         <select
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-36 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 my-2"
+          id="status"
           v-model="status"
           @change="FilterStatus(status)"
         >
@@ -78,6 +80,7 @@
                   <button
                     class="flex items-center"
                     @click="confirmDelete(task)"
+                    name="delete"
                     tabindex="-1"
                   >
                     <Icon
@@ -87,6 +90,7 @@
                   </button>
                   <RouterLink
                     class="flex items-center"
+                    name="edit"
                     :to="`/task/${task.id}/edit`"
                     tabindex="-1"
                   >
@@ -165,13 +169,13 @@ const updateTaskStatus = async (task, id) => {
   return update(id, task.attributes);
 };
 
-const FilterStatus = async (statusName) => {
-  return await filter(statusName);
-};
-const SortByOption = async (dueDate) => {
-  // console.log(dueDate);
-  return await sortBy(dueDate);
-};
+// const FilterStatus = async (statusName) => {
+//   return await filter(statusName);
+// };
+// const SortByOption = async (dueDate) => {
+//   // console.log(dueDate);
+//   return await sortBy(dueDate);
+// };
 </script>
 
 <style lang="scss" scoped></style>

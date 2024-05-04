@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { v4 as uuid } from 'uuid'
+
 
 export default {
   inheritAttrs: false,
@@ -15,7 +15,7 @@ export default {
     id: {
       type: String,
       default() {
-        return `text-input-${uuid()}`
+        return `text-input`
       },
     },
     type: {

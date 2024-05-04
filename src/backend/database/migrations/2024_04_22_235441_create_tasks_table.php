@@ -15,9 +15,12 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->delete('cascade');
+            $table->index('user_id');
+            $table->index('status');
             $table->string('name');
             $table->enum('status', [TaskStatusEnum::New->value, TaskStatusEnum::InProgress->value, TaskStatusEnum::Completed->value])->default(TaskStatusEnum::New->value);
             $table->text('description')->nullable();
+            $table->index('due_date');
             $table->date('due_date')->nullable()->default(null);;
             $table->timestamps();
         });
